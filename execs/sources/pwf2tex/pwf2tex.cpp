@@ -12,7 +12,7 @@
 #include <string>
 #include "pwf2common.h"
 
-//For pwf2cmd: 
+//For ptr2cmd: 
 #define MAX_ALIASES 4
 #include "pwf2cmd.h"
 
@@ -29,27 +29,17 @@ static int cmd_extract_list(int argc, char *args[]);
 static int cmd_inject(int argc, char *args[]);
 static int cmd_inject_list(int argc, char *args[]);
 
-static cmd_t commands[4] = {
-  { "extract", "[tm0-folder] [tex0] [out-pngfile]",
-    "Extract texture from tm0-folder, using tex0, and output as RGBA PNG.",
-    {"e", "x", "get", "g"}, 4, cmd_extract
-  },
-
-  { "inject", "[tm0-folder] [tex0] [in-pngfile]",
-    "Inject texture into tm0-folder, using tex0 and 32-bit RGBA PNG.",
-    {"i", "put", "p"}, 3, cmd_inject
-  },
-
-  { "extract-list", "[tm0-folder] [in-listfile] <png-folder>",
+static cmd_t commands[2] = {
+  { "extract", "[tm0-folder] [in-listfile] <png-folder>",
     "Batch extract textures from tm0-folder using listfile and output as RGBA PNG.\n\
      If png-folder is not specified, the current directory is used for output.",
-    {"el", "xl", "get-list", "gl"}, 4, cmd_extract_list
+    {"e", "x", "get", "g"}, 4, cmd_extract_list
   },
 
-  { "inject-list", "[tm0-folder] [in-listfile] <png-folder>",
+  { "inject", "[tm0-folder] [in-listfile] <png-folder>",
     "Batch inject textures into tm0-folder using listfile with 32-bit RGBA PNGs.\n\
      If png-folder is not specified, the current directory is used as input.",
-    {"il", "put-list", "pl"}, 3, cmd_inject_list
+    {"i", "put", "p"}, 3, cmd_inject_list
   }
 };
 
@@ -209,41 +199,6 @@ void ptr2tex_alloc_out_image_from_tex0(gs::tex0_t tex0, u32 **outpixels) {
 
 #define REQUIRE(x, c) if(argc < x) { commands[c].printhelp(""); return 1; }
 
-static int cmd_extract(int argc, char *args[]) {
-  REQUIRE(3, 0);
-  gs::tex0_t tex0;
-  tm0env_t tm0env;
-  const char *tm0foldername = args[0];
-  const char *tex0s = args[1];
-  const char *pngfilename = args[2];
-
-  if(tm0env.load(tm0foldername) == false) {
-    return 1;
-  }
-  sscanf(tex0s, "%016" PRIx64, &tex0.value);
-
-  int tw,th; wh_from_tex0(tex0, tw, th);
-  int npixels = tw * th;
-  u32 *outpixels = (u32*)(malloc(npixels * sizeof(*outpixels)));
-
-  INFO("EXTRACT: %016" PRIx64 "\n", tex0.value);
-
-  extract_from_tex0(tex0, outpixels);
-
-  INFO("WRITE: %s\n", pngfilename);
-
-  FILE *outfile = fopen(pngfilename, "wb");
-  if(NULL == outfile) {
-    ERROR("Could not open output PNG %s\n", pngfilename);
-    return 1;
-  }
-  pngwrite(outfile, tw, th, outpixels);
-  fclose(outfile);
-      
-  free(outpixels);
-  INFO("Done.\n",0);
-  return 0; 
-}
 
 static int cmd_extract_list(int argc, char *args[]) {
   REQUIRE(2, 2);
@@ -294,37 +249,6 @@ static int cmd_extract_list(int argc, char *args[]) {
   return 0;
 }
 
-static int cmd_inject(int argc, char *args[]) {
-  REQUIRE(3, 1);
-  gs::tex0_t tex0;
-  tm0env_t tm0env;
-  const char *tm0foldername = args[0];
-  const char *tex0s = args[1];
-  const char *pngfilename = args[2];
-  if(false == tm0env.load(tm0foldername)) {
-    return 1;
-  }
-  sscanf(tex0s, "%016" PRIx64, &tex0.value);
-      
-  int tw,th; wh_from_tex0(tex0, tw, th);
-  int npixels = tw * th;
-  u32 *inpixels = (u32*)(malloc(npixels * sizeof(*inpixels)));
-
-  FILE *infile = fopen(pngfilename, "rb");
-  if(NULL == infile) {
-    ERROR("Could not open PNG file %s\n", pngfilename);
-    return 1;
-  }
-  pngread(infile, inpixels);
-  fclose(infile);
-
-  inject_tex(tex0, inpixels);
-
-  tm0env.save(tm0foldername);
-  printf("Injected %016" PRIx64, tex0.value);
-  free(inpixels);
-  return 0;
-}
 
 static int cmd_inject_list(int argc, char *args[]) {
   REQUIRE(2, 3);
