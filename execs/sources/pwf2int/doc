@@ -1,0 +1,24 @@
+struct inthdr_t
+  u32 magic = 0x11223344
+  u32 file_count
+  u32 resource_type
+  u32 filename_table_offset ;offset is 0x10 aligned
+  u32 filename_table_size_in_bytes ;offset+size is 0x800 aligned
+  u32 compressed_data_size_in_bytes ;0x800 aligned
+  u32 unk1
+  u32 unk2
+  u32 memfile_map[file_count+1]; ;determines file data offset after decompression, last offset points to the byte after the last file, not real file. each offset is 0x10 aligned
+  filename_entry_t filename_entries[file_count]
+  char characters[filename_table_size_in_bytes] ;strings are null-terminated
+end struct
+
+struct filename_entry_t
+  u32 filename_offset
+  u32 sizeof_uncompressed_file_data
+end struct
+
+struct lzss_header_t
+  u32 compressed_size
+  u32 uncompressed_size
+  byte data...
+end struct
