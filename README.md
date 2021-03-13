@@ -1,10 +1,19 @@
-# pwf2tools - C++ port
+# ![pwf2tools logo](https://github.com/pahaze/pwf2tools-cpp/blob/master/img/pwf2tools-x64.png?raw=true) pwf2tools - C++ port
 
-<img src="https://github.com/pahaze/pwf2tools-cpp/blob/master/img/pwf2tools.png?raw=true" width="16"> pwf2tools is a suite of modding tools for the game "Parappa the Rapper 2". It's free to use and open source (and always will be!). It can be used for INT, SPM, TM2, and TEX0 modification. This version is not complete, so it should not be used yet, as I'm still learning C++ and Qt! Continue to use pwf2tools-cs, please. This version is built in C++ (Qt), and is targetted for every OS, including Linux and macOS. If you want to test, feel free to download and build. You have to have zlib and libpng development files. 
+ pwf2tools is a suite of modding tools for the game "Parappa the Rapper 2". It's free to use and open source (and always will be!). It can be used for INT, SPM, TM2, and TEX0 modification. This version is not complete, so it should not be used yet, as I'm still learning C++ and Qt! Continue to use pwf2tools-cs, please. This version is built in C++ (Qt), and is targetted for every OS, including Linux and macOS. If you want to test, feel free to download and build. You have to have zlib and libpng development files. 
+
+## Currently finished -
+
+  * pwf2int
+  * pwf2spm
 
 ## Building
 
 Build as you normally would a CMake application. Qt5 or higher is needed, along with libpng/zlib. The good ol' `mkdir build && cd build && cmake ..` will work, and output will be put in build/../out (or rootdir/out).
+
+## CMake Arguments
+
+Don't want the GUI? Just want the executables? Sure! Supply `-DBUILD_QTGUI=NO` to CMake.
 
 ## Supported files
   * Archives

@@ -37,6 +37,9 @@ set(PROJECT_SOURCES
         pwf2options.cpp
         pwf2options.h
         pwf2options.ui
+        pwf2spm.cpp
+        pwf2spm.h
+        pwf2spm.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

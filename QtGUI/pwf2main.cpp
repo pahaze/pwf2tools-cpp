@@ -54,9 +54,9 @@ void pwf2main::openInt() {
 }
 
 void pwf2main::openSpm() {
-    QMessageBox spmError;
-    spmError.critical(0, "Error opening pwf2spm!", "pwf2spm is not ready for the C++ port yet!");
-    spmError.setFixedSize(500, 200);
+    pwf2spm pwf2spm;
+    pwf2spm.setModal(true);
+    pwf2spm.exec();
 }
 
 void pwf2main::openTex() {
