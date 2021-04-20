@@ -6,6 +6,7 @@
 
   * pwf2int
   * pwf2spm
+  * pwf2tex
 
 ## Building
 

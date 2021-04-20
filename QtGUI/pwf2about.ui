@@ -137,7 +137,7 @@ p, li { white-space: pre-wrap; }
     </rect>
    </property>
    <property name="text">
-    <string>Built on March 6th, 2021</string>
+    <string>Built on April 18th, 2021</string>
    </property>
   </widget>
   <widget class="QLabel" name="label">

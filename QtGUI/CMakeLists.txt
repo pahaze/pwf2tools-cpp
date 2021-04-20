@@ -40,6 +40,9 @@ set(PROJECT_SOURCES
         pwf2spm.cpp
         pwf2spm.h
         pwf2spm.ui
+        pwf2tex.cpp
+        pwf2tex.h
+        pwf2tex.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

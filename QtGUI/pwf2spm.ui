@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>pwf2spm</string>
   </property>
   <property name="windowIcon">
    <iconset resource="pwf2main.qrc">
@@ -44,7 +44,7 @@
   </widget>
   <widget class="QLineEdit" name="SpmPathBox">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>
@@ -83,7 +83,7 @@
   </widget>
   <widget class="QLineEdit" name="Tex0PathBox">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>

@@ -8,6 +8,7 @@
 #include <pwf2int.h>
 #include <pwf2options.h>
 #include <pwf2spm.h>
+#include <pwf2tex.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

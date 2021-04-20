@@ -71,21 +71,30 @@ void pwf2spm::saveFinal() {
         emptyBoxError.critical(0, "Error running pwf2spm!", "You must fill all boxes in!");
         emptyBoxError.setFixedSize(500, 200);
     } else {
-        QString pwf2intexecloc = pwf2spm::getOS();
-        QString pwf2intargs = " gtex0  \"" + ui->SpmPathBox->text() + "\" \"" + ui->Tex0PathBox->text() + "\"";
-        pwf2proc.execute(pwf2intexecloc + pwf2intargs);
-        pwf2proc.waitForFinished(-1);
-        if (pwf2proc.waitForFinished() && pwf2proc.exitStatus() != QProcess::NormalExit) {
-            pwf2proc.kill();
-            QMessageBox criticalRunError;
-            criticalRunError.critical(0, "Error running pwf2spm!", "Something bad happened and spm failed to run! Error: " + pwf2proc.error());
-            criticalRunError.setFixedSize(500, 200);
+        QFile openspmloc(ui->SpmPathBox->text());
+        if (!openspmloc.exists()) {
+            QMessageBox nonExistantFile;
+            nonExistantFile.critical(0, "Error opening SPM.",
+                "Please make sure the file you "
+                "chose exists and try again.");
+            nonExistantFile.setFixedSize(500, 200);
         } else {
-            QMessageBox successMessage;
-            successMessage.information(0, "Done!", "Finished!");
-            successMessage.setFixedSize(500, 200);
+            QString pwf2intexecloc = pwf2spm::getOS();
+            QString pwf2intargs = " gtex0  \"" + ui->SpmPathBox->text() + "\" \"" + ui->Tex0PathBox->text() + "\"";
+            pwf2proc.execute(pwf2intexecloc + pwf2intargs);
+            pwf2proc.waitForFinished(-1);
+            if (pwf2proc.waitForFinished() && pwf2proc.exitStatus() != QProcess::NormalExit) {
+                pwf2proc.kill();
+                QMessageBox criticalRunError;
+                criticalRunError.critical(0, "Error running pwf2spm!", "Something bad happened and spm failed to run! Error: " + pwf2proc.error());
+                criticalRunError.setFixedSize(500, 200);
+            } else {
+                QMessageBox successMessage;
+                successMessage.information(0, "Done!", "Finished!");
+                successMessage.setFixedSize(500, 200);
+            }
+            this->close();
         }
-        this->close();
     }
 }
 

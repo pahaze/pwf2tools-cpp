@@ -60,9 +60,9 @@ void pwf2main::openSpm() {
 }
 
 void pwf2main::openTex() {
-    QMessageBox texError;
-    texError.critical(0, "Error opening pwf2tex!", "pwf2tex is not ready for the C++ port yet!");
-    texError.setFixedSize(500, 200);
+    pwf2tex pwf2tex;
+    pwf2tex.setModal(true);
+    pwf2tex.exec();
 }
 
 void pwf2main::openHat() {
