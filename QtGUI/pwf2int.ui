@@ -69,7 +69,7 @@
     </widget>
     <widget class="QLineEdit" name="ExtIntPathBox">
      <property name="enabled">
-      <bool>false</bool>
+      <bool>true</bool>
      </property>
      <property name="geometry">
       <rect>
@@ -108,7 +108,7 @@
     </widget>
     <widget class="QLineEdit" name="openFolderExtPathBox">
      <property name="enabled">
-      <bool>false</bool>
+      <bool>true</bool>
      </property>
      <property name="geometry">
       <rect>
@@ -165,7 +165,7 @@
     </widget>
     <widget class="QLineEdit" name="saveIntPathBox">
      <property name="enabled">
-      <bool>false</bool>
+      <bool>true</bool>
      </property>
      <property name="geometry">
       <rect>
@@ -204,7 +204,7 @@
     </widget>
     <widget class="QLineEdit" name="moddedIntFolderPathBox">
      <property name="enabled">
-      <bool>false</bool>
+      <bool>true</bool>
      </property>
      <property name="geometry">
       <rect>
