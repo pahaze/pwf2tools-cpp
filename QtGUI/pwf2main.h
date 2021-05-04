@@ -28,7 +28,6 @@ class pwf2main : public QMainWindow {
     ~pwf2main();
 
     private slots:
-    void loadSettings();
     void on_actionAbout_triggered();
     void on_actionOptions_triggered();
     void on_actionExit_triggered();

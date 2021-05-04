@@ -8,7 +8,6 @@
 pwf2main::pwf2main(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::pwf2main) {
     ui->setupUi(this);
-    loadSettings();
     QObject::connect(ui->pwf2hat, SIGNAL(clicked()), this, SLOT(openHat()));
     QObject::connect(ui->pwf2int, SIGNAL(clicked()), this, SLOT(openInt()));
     QObject::connect(ui->pwf2spm, SIGNAL(clicked()), this, SLOT(openSpm()));
@@ -17,11 +16,6 @@ pwf2main::pwf2main(QWidget *parent)
 
 pwf2main::~pwf2main() {
     delete ui;
-}
-
-// settings
-
-void pwf2main::loadSettings() {
 }
 
 // menubar stuff :)
