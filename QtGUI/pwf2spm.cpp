@@ -3,6 +3,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QProcess>
+#include <QSettings>
 
 pwf2spm::pwf2spm(QWidget *parent) : QDialog(parent),
                                     ui(new Ui::pwf2spm) {
@@ -93,7 +94,10 @@ void pwf2spm::saveFinal() {
                 successMessage.information(0, "Done!", "Finished!");
                 successMessage.setFixedSize(500, 200);
             }
-            this->close();
+            QSettings pwf2settings((QDir(QApplication::applicationDirPath()).filePath("settings.ini")), QSettings::IniFormat);
+            if (pwf2settings.value("User_Experience/CloseFormOnToolUse", true).toBool() == true) {
+                this->close();
+            }
         }
     }
 }

@@ -101,7 +101,10 @@ void pwf2int::runExt() {
                 successMessage.information(0, "Done!", "Finished!");
                 successMessage.setFixedSize(500, 200);
             }
-            this->close();
+            QSettings pwf2settings((QDir(QApplication::applicationDirPath()).filePath("settings.ini")), QSettings::IniFormat);
+            if (pwf2settings.value("User_Experience/CloseFormOnToolUse", true).toBool() == true) {
+                this->close();
+            }
         }
     }
 }
@@ -163,7 +166,10 @@ void pwf2int::runCrt() {
             successMessage.information(0, "Done!", "Finished!");
             successMessage.setFixedSize(500, 200);
         }
-        this->close();
+        QSettings pwf2settings((QDir(QApplication::applicationDirPath()).filePath("settings.ini")), QSettings::IniFormat);
+        if (pwf2settings.value("User_Experience/CloseFormOnToolUse", true).toBool() == true) {
+            this->close();
+        }
     }
 }
 

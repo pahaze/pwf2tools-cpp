@@ -2,6 +2,7 @@
 #define PWF2INT_H
 
 #include <QDialog>
+#include <pwf2options.h>
 
 namespace Ui {
     class pwf2int;

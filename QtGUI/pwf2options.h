@@ -2,6 +2,7 @@
 #define PWF2OPTIONS_H
 
 #include <QDialog>
+#include <QSettings>
 
 namespace Ui {
     class pwf2options;
@@ -17,6 +18,8 @@ class pwf2options : public QDialog {
     private slots:
     void cancelButtonAction();
     void OKButtonAction();
+    void readSettings();
+    void writeSettings();
 
     private:
     Ui::pwf2options *ui;

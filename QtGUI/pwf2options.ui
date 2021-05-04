@@ -23,7 +23,11 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Options</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="pwf2main.qrc">
+    <normaloff>:/img/pwf2tools.png</normaloff>:/img/pwf2tools.png</iconset>
   </property>
   <widget class="QPushButton" name="OkButton">
    <property name="geometry">
@@ -104,6 +108,8 @@
    </widget>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="pwf2main.qrc"/>
+ </resources>
  <connections/>
 </ui>

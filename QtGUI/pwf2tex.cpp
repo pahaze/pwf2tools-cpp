@@ -5,6 +5,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QProcess>
+#include <QSettings>
 #include <QString>
 
 pwf2tex::pwf2tex(QWidget *parent) : QDialog(parent),
@@ -118,7 +119,10 @@ void pwf2tex::extFinalize() {
                 successMessage.information(0, "Done!", "Finished!");
                 successMessage.setFixedSize(500, 200);
             }
-            this->close();
+            QSettings pwf2settings((QDir(QApplication::applicationDirPath()).filePath("settings.ini")), QSettings::IniFormat);
+            if (pwf2settings.value("User_Experience/CloseFormOnToolUse", true).toBool() == true) {
+                this->close();
+            }
         }
     }
 }
@@ -203,7 +207,10 @@ void pwf2tex::injFinalize() {
                 successMessage.information(0, "Done!", "Finished!");
                 successMessage.setFixedSize(500, 200);
             }
-            this->close();
+            QSettings pwf2settings((QDir(QApplication::applicationDirPath()).filePath("settings.ini")), QSettings::IniFormat);
+            if (pwf2settings.value("User_Experience/CloseFormOnToolUse", true).toBool() == true) {
+                this->close();
+            }
         }
     }
 }
