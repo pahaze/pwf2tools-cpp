@@ -12,6 +12,7 @@ pwf2main::pwf2main(QWidget *parent)
     QObject::connect(ui->pwf2int, SIGNAL(clicked()), this, SLOT(openInt()));
     QObject::connect(ui->pwf2spm, SIGNAL(clicked()), this, SLOT(openSpm()));
     QObject::connect(ui->pwf2tex, SIGNAL(clicked()), this, SLOT(openTex()));
+    ui->buildddate->setText("This build was created on " + QString::fromStdString(__DATE__));
 }
 
 pwf2main::~pwf2main() {

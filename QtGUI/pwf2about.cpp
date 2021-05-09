@@ -13,6 +13,7 @@ pwf2about::pwf2about(QWidget *parent) : QDialog(parent),
     ui->pwf2ico->setPixmap(pix.scaled(71, 71, Qt::KeepAspectRatio));
 
     QObject::connect(ui->leaveButton, SIGNAL(clicked()), this, SLOT(leaveWindow()));
+    ui->BuiltOnDateLabel->setText("Built on " + QString::fromStdString(__DATE__) + " at " + QString::fromStdString(__TIME__));
 }
 
 void pwf2about::leaveWindow() {
