@@ -45,14 +45,29 @@ set(PROJECT_SOURCES
         pwf2tex.ui
 )
 
-if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(pwf2tools
-        ${PROJECT_SOURCES}
-    )
+if(WIN32)
+    if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+        qt_add_executable(pwf2tools
+            ${PROJECT_SOURCES}
+            ${CMAKE_CURRENT_SOURCE_DIR}/res/pwf2tools.rc
+        )
+    else()
+        add_executable(pwf2tools
+            ${PROJECT_SOURCES}
+            ${CMAKE_CURRENT_SOURCE_DIR}/res/pwf2tools.rc
+        )
+    endif()
 else()
+    if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+        qt_add_executable(pwf2tools
+            ${PROJECT_SOURCES}
+        )
+    else()
         add_executable(pwf2tools
             ${PROJECT_SOURCES}
         )
+    endif()
 endif()
+
 
 target_link_libraries(pwf2tools PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)

@@ -11,7 +11,15 @@ set(PROJECT_SOURCES
     pwf2int.cpp
 )
 
-add_executable(pwf2int
-	    lzss.c
-            ${PROJECT_SOURCES}
-)
+if(WIN32)
+    add_executable(pwf2int
+        lzss.c
+        res/pwf2int.rc
+        ${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_SOURCES}
+    )
+else()
+    add_executable(pwf2int
+        lzss.c
+        ${PROJECT_SOURCES}
+    )
+endif()

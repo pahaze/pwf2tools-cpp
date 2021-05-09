@@ -24,8 +24,15 @@ set(PROJECT_SOURCES
     tim2upload.cpp
 )
 
-add_executable(pwf2tex
-            ${PROJECT_SOURCES}
-)
+if(WIN32)
+    add_executable(pwf2tex
+        ${PROJECT_SOURCES}
+        ${CMAKE_CURRENT_SOURCE_DIR}/res/pwf2tex.rc
+    )
+else()
+    add_executable(pwf2tex
+        ${PROJECT_SOURCES}
+    )
+endif()
 
 target_link_libraries(pwf2tex ZLIB::ZLIB PNG::PNG)

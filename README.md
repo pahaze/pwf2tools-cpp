@@ -1,6 +1,6 @@
 # ![pwf2tools logo](https://github.com/pahaze/pwf2tools-cpp/blob/master/img/pwf2tools-x64.png?raw=true) pwf2tools - C++ port
 
- pwf2tools is a suite of modding tools for the game "Parappa the Rapper 2". It's free to use and open source (and always will be!). It can be used for INT, SPM, TM2, and TEX0 modification. This version is not complete, so it should not be used yet, as I'm still learning C++ and Qt! Continue to use pwf2tools-cs, please. This version is built in C++ (Qt), and is targetted for every OS, including Linux and macOS. If you want to test, feel free to download and build. You have to have zlib and libpng development files. 
+ pwf2tools is a suite of modding tools for the game "Parappa the Rapper 2". It is released under the GPLv3 license. It's free to use and open source (and always will be!). It can be used for INT, SPM, TM2, and TEX0 modification. This version is not complete, so it isn't perfect. A public beta will be released soon. This version is built in C++ (Qt), and is targetted for every OS, including Linux and macOS. If you want to test, feel free to download and build. You have to have zlib and libpng development files. 
 
 ## Currently finished -
 
@@ -8,9 +8,26 @@
   * pwf2spm
   * pwf2tex
 
-## Building
+# Installing and using
+You can build from source or you can use a pre-built executable file.
 
-Build as you normally would a CMake application. Qt5 or higher is needed, along with libpng/zlib. The good ol' `mkdir build && cd build && cmake ..` will work, and output will be put in build/../out (or rootdir/out).
+## From source
+To build pwf2tools-cpp with the GUI and executables, you need the following dependencies on your system: **Qt5** (or newer), **CMake 3.5** (or newer), **libpng**, **zlib**, and a C/C++ compiler. At the root of the directory, you will need to run these commands:
+
+    mkdir build
+    cd build
+    cmake ..
+    make
+    make install (not necessary but can be used if wanted)
+
+Output will be in the root directory in a folder called "out". (pwf2tools-cpp/out)
+
+For only the executables, dependencies are: **libpng**, **zlib**, **CMake 3.5** (or newer), and a C/C++ compiler.
+For only the GUI, dependencies are: **Qt5** (or newer), **CMake 3.5** (or newer), and a C/C++ compiler.
+
+## Pre-built
+Pre-built executables can be found on the [Releases](https://github.com/pahaze/pwf2tools-cpp/releases) page. Pre-built Macintosh executables will most likely not happen as I do not own a Mac.
+
 
 ## CMake Arguments
 

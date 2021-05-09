@@ -11,6 +11,13 @@ set(PROJECT_SOURCES
     spm.cpp
 )
 
-add_executable(pwf2spm
-            ${PROJECT_SOURCES}
-)
+if(WIN32)
+     add_executable(pwf2spm
+        ${PROJECT_SOURCES}
+        ${CMAKE_CURRENT_SOURCE_DIR}/res/pwf2spm.rc
+    )
+else()
+    add_executable(pwf2spm
+        ${PROJECT_SOURCES}
+    )
+endif()
