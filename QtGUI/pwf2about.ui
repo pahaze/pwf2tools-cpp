@@ -132,7 +132,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>10</x>
      <y>230</y>
-     <width>161</width>
+     <width>211</width>
      <height>16</height>
     </rect>
    </property>
@@ -145,7 +145,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>150</x>
      <y>10</y>
-     <width>171</width>
+     <width>231</width>
      <height>61</height>
     </rect>
    </property>
@@ -161,6 +161,7 @@ p, li { white-space: pre-wrap; }
   </widget>
  </widget>
  <resources>
+  <include location="pwf2main.qrc"/>
   <include location="pwf2main.qrc"/>
  </resources>
  <connections/>
