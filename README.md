@@ -1,5 +1,7 @@
 # ![pwf2tools logo](https://github.com/pahaze/pwf2tools-cpp/blob/master/img/pwf2tools-x64.png?raw=true) pwf2tools - C++ port
 
+[![CodeFactor](https://www.codefactor.io/repository/github/pahaze/pwf2tools-cpp/badge)](https://www.codefactor.io/repository/github/pahaze/pwf2tools-cpp)
+
  pwf2tools is a suite of modding tools for the game "Parappa the Rapper 2". It is released under the GPLv3 license. It's free to use and open source (and always will be!). It can be used for INT, SPM, TM2, and TEX0 modification. This version is not complete, so it isn't perfect. A public beta will be released soon. This version is built in C++ (Qt), and is targetted for every OS, including Linux and macOS. If you want to test, feel free to download and build. You have to have zlib and libpng development files. 
 
 ## Currently finished -
