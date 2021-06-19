@@ -9,6 +9,8 @@ SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../../../out/bin)
 set(PROJECT_SOURCES
     pwf2spm.cpp
     spm.cpp
+    spm.h
+    types.h
 )
 
 if(WIN32)

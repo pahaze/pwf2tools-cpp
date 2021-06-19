@@ -18,10 +18,17 @@ endif()
 
 set(PROJECT_SOURCES
     gs.cpp
+    gs.h
     pnghelper.cpp
+    pnghelper.h
+    pwf2cmd.h
+    pwf2common.h
     pwf2tex.cpp
     tim2.cpp
+    tim2.h
     tim2upload.cpp
+    tim2upload.h
+    types.h
 )
 
 if(WIN32)

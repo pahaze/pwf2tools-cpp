@@ -4,4 +4,4 @@
 bool tim2download(const void *tim2);
 bool tim2upload(const void *tim2);
 
-#endif // TIM2UPLOAD_H
+#endif  // TIM2UPLOAD_H

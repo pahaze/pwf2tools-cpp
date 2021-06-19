@@ -8,7 +8,11 @@ SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../../../out/bin)
 
 set(PROJECT_SOURCES 
     int.cpp
+    int.h
+    pwf2cmd.h
+    pwf2common.h
     pwf2int.cpp
+    types.h
 )
 
 if(WIN32)

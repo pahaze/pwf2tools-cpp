@@ -10,4 +10,4 @@ typedef uint8_t u8;
 
 typedef u8 byte;
 
-#endif // PTR2TEX_TYPES_H
+#endif  // PTR2TEX_TYPES_H
