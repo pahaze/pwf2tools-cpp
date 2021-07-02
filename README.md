@@ -1,4 +1,4 @@
-# ![pwf2tools logo](https://github.com/pahaze/pwf2tools-cpp/blob/master/img/pwf2tools-x64.png?raw=true) pwf2tools - C++ port
+# ![pwf2tools logo](https://github.com/pahaze/pwf2tools-cpp/blob/master/img/pwf2tools-x64.png?raw=true) pwf2tools - A suite of tools for modding PTR2!
 
 [![CodeFactor](https://www.codefactor.io/repository/github/pahaze/pwf2tools-cpp/badge)](https://www.codefactor.io/repository/github/pahaze/pwf2tools-cpp)
 
@@ -33,7 +33,8 @@ Pre-built executables can be found on the [Releases](https://github.com/pahaze/p
 
 ## CMake Arguments
 
-Don't want the GUI? Just want the executables? Sure! Supply `-DBUILD_QTGUI=NO` to CMake.
+Don't want the GUI? Just want the executables? Sure! Supply `-DBUILD_QTGUI=NO` to your CMake arguments. \
+Not feeling like the executables? Just want the GUI? Sure! Supply `-DBUILD_EXECS=NO` to your CMake arguments.
 
 ## Supported files
   * Archives
@@ -58,4 +59,4 @@ pwf2tex deals with the extraction and injection of textures using `tex0` files t
 
 ## pwf2hat
 
-pwf2hat deals with the editing of `TM2` textures. These are used by Parappa 2 to store hats. There are 0 color limitations on them, so don't worry about indexing. (Will not be in C++ port for a while).
+pwf2hat deals with the editing of `TM2` textures. These are used by Parappa 2 to store hats. There are 0 color limitations on them, so don't worry about indexing. (Will not be in C++ port for a while, use the tool Rainbow to edit these for now :]).
