@@ -45,12 +45,12 @@
     <attribute name="title">
      <string>Extract textures</string>
     </attribute>
-    <widget class="QLabel" name="texLabel1">
+    <widget class="QLabel" name="extractFindTEX0FolderLabel">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>311</width>
+       <width>391</width>
        <height>16</height>
       </rect>
      </property>
@@ -58,22 +58,22 @@
       <string>Select your tex0 folder. (TEXTURES from your INT)</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="extTex0FolderLineEdit">
+    <widget class="QLineEdit" name="extractTEX0FolderPath">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>30</y>
-       <width>291</width>
+       <width>281</width>
        <height>23</height>
       </rect>
      </property>
     </widget>
-    <widget class="QPushButton" name="extOpenTex0FolderButton">
+    <widget class="QPushButton" name="extractOpenTEX0Folder">
      <property name="geometry">
       <rect>
-       <x>309</x>
+       <x>299</x>
        <y>30</y>
-       <width>91</width>
+       <width>101</width>
        <height>23</height>
       </rect>
      </property>
@@ -81,12 +81,12 @@
       <string>Find a folder!</string>
      </property>
     </widget>
-    <widget class="QLabel" name="texLabel2">
+    <widget class="QLabel" name="extractFindTEX0FileLabel">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>70</y>
-       <width>311</width>
+       <width>391</width>
        <height>16</height>
       </rect>
      </property>
@@ -94,22 +94,22 @@
       <string>Select your tex0 file. (get from an SPM)</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="extTex0FileLineEdit">
+    <widget class="QLineEdit" name="extractTEX0FilePath">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>90</y>
-       <width>291</width>
+       <width>281</width>
        <height>23</height>
       </rect>
      </property>
     </widget>
-    <widget class="QPushButton" name="extOpenTex0FileButton">
+    <widget class="QPushButton" name="extractOpenTEX0File">
      <property name="geometry">
       <rect>
-       <x>310</x>
+       <x>300</x>
        <y>90</y>
-       <width>91</width>
+       <width>101</width>
        <height>23</height>
       </rect>
      </property>
@@ -117,12 +117,12 @@
       <string>Open a tex0!</string>
      </property>
     </widget>
-    <widget class="QLabel" name="texLabel3">
+    <widget class="QLabel" name="extractFindPNGFolderLabel">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>130</y>
-       <width>331</width>
+       <width>391</width>
        <height>16</height>
       </rect>
      </property>
@@ -130,22 +130,22 @@
       <string>Select your output PNG folder. (all PNGs will go here)</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="extPngFolderLineEdit">
+    <widget class="QLineEdit" name="extractPNGFolderPath">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>150</y>
-       <width>291</width>
+       <width>281</width>
        <height>23</height>
       </rect>
      </property>
     </widget>
-    <widget class="QPushButton" name="extOpenPngFolderButton">
+    <widget class="QPushButton" name="extractOpenPNGFolder">
      <property name="geometry">
       <rect>
-       <x>310</x>
+       <x>300</x>
        <y>150</y>
-       <width>91</width>
+       <width>101</width>
        <height>23</height>
       </rect>
      </property>
@@ -153,12 +153,12 @@
       <string>Find a folder!</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="extFinalizeExtractButton">
+    <widget class="QPushButton" name="extractRun">
      <property name="geometry">
       <rect>
-       <x>140</x>
+       <x>130</x>
        <y>180</y>
-       <width>141</width>
+       <width>161</width>
        <height>23</height>
       </rect>
      </property>
@@ -171,12 +171,12 @@
     <attribute name="title">
      <string>Inject textures</string>
     </attribute>
-    <widget class="QLabel" name="texLabel4">
+    <widget class="QLabel" name="injectFindTEX0FolderLabel">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>321</width>
+       <width>391</width>
        <height>16</height>
       </rect>
      </property>
@@ -184,22 +184,22 @@
       <string>Select your tex0 folder. (TEXTURES from your INT)</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="injTex0FolderLineEdit">
+    <widget class="QLineEdit" name="injectTEX0FolderPath">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>30</y>
-       <width>291</width>
+       <width>281</width>
        <height>23</height>
       </rect>
      </property>
     </widget>
-    <widget class="QPushButton" name="injOpenTex0FolderButton">
+    <widget class="QPushButton" name="injectOpenTEX0Folder">
      <property name="geometry">
       <rect>
-       <x>309</x>
+       <x>299</x>
        <y>30</y>
-       <width>91</width>
+       <width>101</width>
        <height>23</height>
       </rect>
      </property>
@@ -207,12 +207,12 @@
       <string>Find a folder!</string>
      </property>
     </widget>
-    <widget class="QLabel" name="texLabel5">
+    <widget class="QLabel" name="injectFindTEX0FileLabel">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>70</y>
-       <width>321</width>
+       <width>391</width>
        <height>16</height>
       </rect>
      </property>
@@ -220,22 +220,22 @@
       <string>Select your tex0 file. (get from an SPM)</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="injTex0FileLineEdit">
+    <widget class="QLineEdit" name="injectTEX0FilePath">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>90</y>
-       <width>291</width>
+       <width>281</width>
        <height>23</height>
       </rect>
      </property>
     </widget>
-    <widget class="QPushButton" name="injOpenTex0FileButton">
+    <widget class="QPushButton" name="injectOpenTEX0File">
      <property name="geometry">
       <rect>
-       <x>310</x>
+       <x>300</x>
        <y>90</y>
-       <width>91</width>
+       <width>101</width>
        <height>23</height>
       </rect>
      </property>
@@ -243,12 +243,12 @@
       <string>Open a tex0!</string>
      </property>
     </widget>
-    <widget class="QLabel" name="texLabel6">
+    <widget class="QLabel" name="injectFindPNGFolderLabel">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>130</y>
-       <width>371</width>
+       <width>391</width>
        <height>16</height>
       </rect>
      </property>
@@ -256,22 +256,22 @@
       <string>Select your output PNG folder. (all edited PNGs will be here)</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="injPngFolderLineEdit">
+    <widget class="QLineEdit" name="injectPNGFolderPath">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>150</y>
-       <width>291</width>
+       <width>281</width>
        <height>23</height>
       </rect>
      </property>
     </widget>
-    <widget class="QPushButton" name="injOpenPngFolderButton">
+    <widget class="QPushButton" name="injectOpenPNGFolder">
      <property name="geometry">
       <rect>
-       <x>310</x>
+       <x>300</x>
        <y>150</y>
-       <width>91</width>
+       <width>101</width>
        <height>23</height>
       </rect>
      </property>
@@ -279,12 +279,12 @@
       <string>Find a folder!</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="injFinalizeInjectButton">
+    <widget class="QPushButton" name="injectRun">
      <property name="geometry">
       <rect>
-       <x>139</x>
+       <x>130</x>
        <y>180</y>
-       <width>141</width>
+       <width>161</width>
        <height>23</height>
       </rect>
      </property>

@@ -29,7 +29,7 @@
    <iconset resource="pwf2main.qrc">
     <normaloff>:/img/pwf2tools.png</normaloff>:/img/pwf2tools.png</iconset>
   </property>
-  <widget class="QPushButton" name="openSpmButt">
+  <widget class="QPushButton" name="openSpmButton">
    <property name="geometry">
     <rect>
      <x>309</x>
@@ -55,7 +55,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLabel" name="opnSpmLabl">
+  <widget class="QLabel" name="openSPMLabel">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -68,7 +68,7 @@
     <string>Open an SPM!</string>
    </property>
   </widget>
-  <widget class="QLabel" name="saveTex0Labl">
+  <widget class="QLabel" name="saveTex0Label">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -94,7 +94,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="saveTex0Butt">
+  <widget class="QPushButton" name="saveTex0Button">
    <property name="geometry">
     <rect>
      <x>310</x>
@@ -107,7 +107,7 @@
     <string>Save a tex0!</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="finalSaveTex0Butt">
+  <widget class="QPushButton" name="run">
    <property name="geometry">
     <rect>
      <x>149</x>

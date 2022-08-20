@@ -1,0 +1,3 @@
+[submodule "QtGUI/discord-rpc"]
+	path = QtGUI/discord-rpc
+	url = https://github.com/discord/discord-rpc

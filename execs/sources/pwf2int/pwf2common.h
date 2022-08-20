@@ -1,6 +1,5 @@
 #ifndef PTR2COMMON_H
 #define PTR2COMMON_H
-
 #include <stdio.h>
 #include <string.h>
 
@@ -13,7 +12,7 @@ static inline bool streq(const char *s1, const char *s2) {
 }
 
 static inline int getfilesize(FILE *f) {
-  long spos = ftell(f);
+  ftell(f);
   fseek(f, 0, SEEK_END);
   long len = ftell(f);
   fseek(f, 0, SEEK_SET);

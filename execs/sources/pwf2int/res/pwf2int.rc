@@ -3,19 +3,19 @@
 IDI_ICON1 ICON DISCARDABLE "pwf2tools.ico"
 
 VS_VERSION_INFO VERSIONINFO
-	FILEVERSION 14,0,0,0
-	PRODUCTVERSION 14,0,0,0
+	FILEVERSION 14,5,0,0
+	PRODUCTVERSION 14,5,0,0
 BEGIN
 	BLOCK "StringFileInfo"
 	BEGIN
 		BLOCK "040904E4"
 		BEGIN
 			VALUE "FileDescription", "An INT archive application for Parappa 2 modding."
-			VALUE "FileVersion", "14.0"
+			VALUE "FileVersion", "14.5"
 			VALUE "InternalName", "pwf2int"
 			VALUE "OriginalFilename", "pwf2int.exe"
 			VALUE "ProductName", "pwf2int"
-			VALUE "ProductVersion", "14.0"
+			VALUE "ProductVersion", "14.5"
 		END
 	END
 	BLOCK "VarFileInfo"

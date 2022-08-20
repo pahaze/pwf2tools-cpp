@@ -151,7 +151,6 @@ static int encode(struct lzss_t *state, int EJ, const uint8_t *src, int srclen, 
       codebuf[0] |= mask;
       codebuf[codebufind++] = textbuf[r];
     } else {
-      codebuf[codebufind++] = (uint8_t)(matchpos);
       codebuf[codebufind++] = (uint8_t)(
 	((matchpos >> (8 - EJ)) & ~((1 << EJ)-1)) |
         (matchlen - (THRESHOLD + 1))

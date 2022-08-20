@@ -1,216 +1,184 @@
+// Non-Qt headers \/
 #include "pwf2tex.h"
 #include "ui_pwf2tex.h"
-#include <QDir>
-#include <QFile>
-#include <QFileDialog>
-#include <QMessageBox>
-#include <QProcess>
-#include <QSettings>
-#include <QString>
 
-pwf2tex::pwf2tex(QWidget *parent) : QDialog(parent),
-                                    ui(new Ui::pwf2tex) {
+pwf2tex::pwf2tex(QWidget *parent): QDialog(parent), ui(new Ui::pwf2tex) {
     ui->setupUi(this);
-    QObject::connect(ui->extOpenTex0FolderButton, SIGNAL(clicked()), this, SLOT(extOpenTex0Folder()));
-    QObject::connect(ui->extOpenTex0FileButton, SIGNAL(clicked()), this, SLOT(extOpenTex0File()));
-    QObject::connect(ui->extOpenPngFolderButton, SIGNAL(clicked()), this, SLOT(extOpenPngFolder()));
-    QObject::connect(ui->extFinalizeExtractButton, SIGNAL(clicked()), this, SLOT(extFinalize()));
-    QObject::connect(ui->injOpenTex0FolderButton, SIGNAL(clicked()), this, SLOT(injOpenTex0Folder()));
-    QObject::connect(ui->injOpenTex0FileButton, SIGNAL(clicked()), this, SLOT(injOpenTex0File()));
-    QObject::connect(ui->injOpenPngFolderButton, SIGNAL(clicked()), this, SLOT(injOpenPngFolder()));
-    QObject::connect(ui->injFinalizeInjectButton, SIGNAL(clicked()), this, SLOT(injFinalize()));
+    setUpButtons();
+    #ifdef ENABLE_RICHPRESENCE
+        QTimer *update = new QTimer(this);
+        connect(update, &QTimer::timeout, this, &pwf2tex::updateRichPresence);
+        update->start(500);
+    #endif
 }
 
 pwf2tex::~pwf2tex() {
     delete ui;
 }
 
-QString pwf2tex::getOS() {
-#if defined(Q_OS_MACOS)
-    return QDir::currentPath() + "/bin/pwf2tex";
-#elif defined(Q_OS_WIN)
-    return QDir::currentPath() + "/bin/pwf2tex.exe";
-#elif defined(Q_OS_LINUX)
-    return QDir::currentPath() + "/bin/pwf2tex";
-#elif defined(Q_OS_UNIX)
-    return QDir::currentPath() + "/bin/pwf2tex";
-#else
-    return QDir::currentPath() + "/bin/pwf2tex";
-#endif
-}
+// Functions
+/// All functions work with both tabs now
 
-void pwf2tex::extOpenTex0Folder() {
-    QString Tex0Folder = QFileDialog::getExistingDirectory(this, tr("Open the TEXTURES folder (from INT)!"), "", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
-    if (Tex0Folder.isEmpty()) {
-        QMessageBox noFolderError;
-        noFolderError.critical(0, "Error opening folder!", "Please choose a folder!");
-        noFolderError.setFixedSize(500, 200);
+void pwf2tex::openPNGFolder() {
+    QString OpenPNGFolderPath = QFileDialog::getExistingDirectory(this, tr("Open a folder to extract PNGs to!"), "", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    if (OpenPNGFolderPath.isEmpty()) {
+        pwf2log::writeToLog(LOG_ERROR, "FAILED to open a folder with reason: no folder chosen");
+        pwf2info::showMessage("critical", "Error opening folder!", "Please choose a folder!");
         return;
     } else {
-        QDir dir(Tex0Folder);
+        QDir PNGFolder(OpenPNGFolderPath);
+        if (!PNGFolder.exists()) {
+            PNGFolder.mkpath(OpenPNGFolderPath);
+            pwf2log::writeToLog(LOG_WARNING, "Folder at " + OpenPNGFolderPath.toStdString() + " doesn't exist!");
+            pwf2log::writeToLog(LOG_INFO, "Creating folder at " + OpenPNGFolderPath.toStdString() + "...");
+        }
+        if(ui->texTabs->currentIndex() == 0)
+            ui->extractPNGFolderPath->setText(PNGFolder.path());
+        else
+            ui->injectPNGFolderPath->setText(PNGFolder.path());
+        pwf2log::writeToLog(LOG_INFO, "Successfully opened folder at " + OpenPNGFolderPath.toStdString());
+    }
+}
+
+void pwf2tex::openTEX0File() {
+    QString OpenTEX0FilePath = QFileDialog::getOpenFileName(this, tr("Open a tex0 file!"), "", tr("tex0 files (*.TEX0, *.tex0);;All Files (*)"));
+    if (OpenTEX0FilePath.isEmpty()) {
+        pwf2log::writeToLog(LOG_ERROR, "FAILED to open a file with reason: no file chosen");
+        pwf2info::showMessage("critical", "Error opening file!", "Please choose a file!");
+        return;
+    } else {
+        QFile TEX0File(OpenTEX0FilePath);
+        if (!TEX0File.open(QIODevice::ReadWrite)) {
+            pwf2log::writeToLog(LOG_ERROR, "FAILED to open file " + OpenTEX0FilePath.toStdString() + " with reason: " + TEX0File.errorString().toStdString());
+            pwf2info::showMessage("critical", "Failed to open file! Try again...", TEX0File.errorString());
+            return;
+        }
+        if(ui->texTabs->currentIndex() == 0)
+            ui->extractTEX0FilePath->setText(TEX0File.fileName());
+        else
+            ui->injectTEX0FilePath->setText(TEX0File.fileName());
+        pwf2log::writeToLog(LOG_INFO, "Successfully opened file at " + OpenTEX0FilePath.toStdString());
+    }
+}
+
+void pwf2tex::openTEX0Folder() {
+    QString OpenTEX0FolderPath = QFileDialog::getExistingDirectory(this, tr("Open the TEXTURES folder (from your INT)!"), "", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    if (OpenTEX0FolderPath.isEmpty()) {
+        pwf2log::writeToLog(LOG_ERROR, "FAILED to open a folder with reason: no folder chosen");
+        pwf2info::showMessage("critical", "Error opening folder!", "Please choose a folder!");
+        return;
+    } else {
+        QDir dir(OpenTEX0FolderPath);
         if (!dir.exists()) {
-            dir.mkdir(Tex0Folder);
-            return;
+            dir.mkdir(OpenTEX0FolderPath);
+            pwf2log::writeToLog(LOG_WARNING, "Folder at " + OpenTEX0FolderPath.toStdString() + " doesn't exist!");
+            pwf2log::writeToLog(LOG_INFO, "Creating folder at " + OpenTEX0FolderPath.toStdString() + "...");
         }
-        ui->extTex0FolderLineEdit->setText(dir.path());
+        if(ui->texTabs->currentIndex() == 0)
+            ui->extractTEX0FolderPath->setText(dir.path());
+        else
+            ui->injectTEX0FolderPath->setText(dir.path());
+        pwf2log::writeToLog(LOG_INFO, "Successfully opened folder at " + OpenTEX0FolderPath.toStdString());
     }
 }
 
-void pwf2tex::extOpenTex0File() {
-    QString Tex0File = QFileDialog::getOpenFileName(this, tr("Open a tex0 file!"), "", tr("tex0 files (*.tex0);;All Files (*)"));
-    if (Tex0File.isEmpty()) {
-        QMessageBox noFileError;
-        noFileError.critical(0, "Error opening file!", "Please choose a file!");
-        noFileError.setFixedSize(500, 200);
-        return;
-    } else {
-        QFile file(Tex0File);
-        if (!file.open(QIODevice::ReadWrite)) {
-            QMessageBox::information(this, tr("Failed to open file! Try again.."), file.errorString());
-            return;
-        }
-        ui->extTex0FileLineEdit->setText(file.fileName());
-    }
-}
-
-void pwf2tex::extOpenPngFolder() {
-    QString PngFolder = QFileDialog::getExistingDirectory(this, tr("Open a folder to extract PNGs to!"), "", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
-    if (PngFolder.isEmpty()) {
-        QMessageBox noFolderError;
-        noFolderError.critical(0, "Error opening folder!", "Please choose a folder!");
-        noFolderError.setFixedSize(500, 200);
-        return;
-    } else {
-        QDir dir(PngFolder);
-        if (!dir.exists()) {
-            dir.mkdir(PngFolder);
-            return;
-        }
-        ui->extPngFolderLineEdit->setText(dir.path());
-    }
-}
-
-void pwf2tex::extFinalize() {
+void pwf2tex::runTex() {
+    QFile TEX0FileLocation;
     QProcess pwf2proc;
-    if (ui->extPngFolderLineEdit->text().isNull() || ui->extPngFolderLineEdit->text().isEmpty() || ui->extTex0FileLineEdit->text().isNull() || ui->extTex0FileLineEdit->text().isEmpty() || ui->extTex0FolderLineEdit->text().isNull() || ui->extTex0FolderLineEdit->text().isEmpty()) {
-        QMessageBox emptyBoxError;
-        emptyBoxError.critical(0, "Error running pwf2tex!", "You must fill all boxes in!");
-        emptyBoxError.setFixedSize(500, 200);
-    } else {
-        QFile texfile(ui->extTex0FileLineEdit->text());
-        if (!texfile.exists()) {
-            QMessageBox nonExistantFile;
-            nonExistantFile.critical(0, "Error opening tex0 file.",
-                "Please make sure the file you "
-                "chose exists and try again.");
-            nonExistantFile.setFixedSize(500, 200);
+    QStringList texArguments;
+    if(ui->texTabs->currentIndex() == 0) {
+        if (ui->extractPNGFolderPath->text().isNull() || ui->extractTEX0FilePath->text().isEmpty() || ui->extractTEX0FolderPath->text().isNull() || ui->extractPNGFolderPath->text().isEmpty() || ui->extractTEX0FilePath->text().isNull() || ui->extractTEX0FolderPath->text().isEmpty()) {
+            pwf2log::writeToLog(LOG_WARNING, "FAILED to run pwf2tex with reason: not all arguments are filled in");
+            pwf2info::showMessage("warning", "Error running pwf2tex!", "You must fill all boxes in!");
         } else {
-            QString pwf2texeloc = pwf2tex::getOS();
-            QString args = " extract \"" + ui->extTex0FolderLineEdit->text() + "\" \"" + ui->extTex0FileLineEdit->text() + "\" \"" + ui->extPngFolderLineEdit->text() + "\"";
-            pwf2proc.execute(pwf2texeloc + args);
-            pwf2proc.waitForFinished(-1);
-            if (pwf2proc.waitForFinished() && pwf2proc.exitStatus() != QProcess::NormalExit) {
-                pwf2proc.kill();
-                QMessageBox criticalRunError;
-                criticalRunError.critical(0, "Error running pwf2tex!", "Something bad happened and pwf2tex failed to run! Error: " + pwf2proc.error());
-                criticalRunError.setFixedSize(500, 200);
+            TEX0FileLocation.setFileName(ui->extractTEX0FilePath->text());
+            if (!TEX0FileLocation.exists()) {
+                pwf2log::writeToLog(LOG_ERROR, "FAILED to open file " + TEX0FileLocation.fileName().toStdString() + " with reason: " + TEX0FileLocation.errorString().toStdString());
+                pwf2info::showMessage("critical", "Error opening TEX0 file!", "Please make sure the file you chose exists and try again!");
             } else {
-                QMessageBox successMessage;
-                successMessage.information(0, "Done!", "Finished!");
-                successMessage.setFixedSize(500, 200);
+                texArguments << "extract" << ui->extractTEX0FolderPath->text() << ui->extractTEX0FilePath->text() << ui->extractPNGFolderPath->text();
+                pwf2proc.start(texExecutable, texArguments);
+                pwf2proc.waitForFinished(-1);
+                if(!pwf2proc.waitForFinished()) {
+                    /// In case something disastrous happens, this should(?) help.
+                    while(pwf2proc.canReadLine()) {
+                        pwf2log::writeToLogNN(LOG_PWF2TEX, pwf2proc.readLine().toStdString());
+                    }
+                    if (pwf2proc.exitStatus() != 0) {
+                        pwf2proc.kill();
+                        pwf2log::writeToLog(LOG_ERROR, "pwf2tex FAILED to run. Status code: " + QString(pwf2proc.exitStatus()).toStdString());
+                        /// Not always given an error.
+                        if(!pwf2proc.errorString().isEmpty() && !pwf2proc.errorString().isNull())
+                            pwf2log::writeToLog(LOG_ERROR, "It seems pwf2tex threw an error too. Error: " + pwf2proc.errorString().toStdString());
+                        pwf2info::showMessage("critical", "Error running pwf2tex!", "Something bad happened and pwf2tex failed to run! Error: " + QString(pwf2proc.error()));
+                    } else {
+                        pwf2log::writeToLog(LOG_INFO, "Successfully ran pwf2tes with executable " + texExecutable.toStdString() + " and arguments " + texArguments.join(" ").toStdString() + "!");
+                        pwf2info::showMessage("info", "Done!", "Finished!");
+                    }
+                    if (pwf2info::closeWindowOnToolUse()) {
+                        this->close();
+                    }
+                }
             }
-            QSettings pwf2settings((QDir(QApplication::applicationDirPath()).filePath("settings.ini")), QSettings::IniFormat);
-            if (pwf2settings.value("User_Experience/CloseFormOnToolUse", true).toBool() == true) {
-                this->close();
-            }
         }
-    }
-}
-
-void pwf2tex::injOpenTex0Folder() {
-    QString Tex0Folder = QFileDialog::getExistingDirectory(this, tr("Open the TEXTURES folder (from INT)!"), "", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
-    if (Tex0Folder.isEmpty()) {
-        QMessageBox noFolderError;
-        noFolderError.critical(0, "Error opening folder!", "Please choose a folder!");
-        noFolderError.setFixedSize(500, 200);
-        return;
     } else {
-        QDir dir(Tex0Folder);
-        if (!dir.exists()) {
-            dir.mkdir(Tex0Folder);
-            return;
-        }
-        ui->injTex0FolderLineEdit->setText(dir.path());
-    }
-}
-
-void pwf2tex::injOpenTex0File() {
-    QString Tex0File = QFileDialog::getOpenFileName(this, tr("Open a tex0 file!"), "", tr("tex0 files (*.tex0);;All Files (*)"));
-    if (Tex0File.isEmpty()) {
-        QMessageBox noFileError;
-        noFileError.critical(0, "Error opening file!", "Please choose a file!");
-        noFileError.setFixedSize(500, 200);
-        return;
-    } else {
-        QFile file(Tex0File);
-        if (!file.open(QIODevice::ReadWrite)) {
-            QMessageBox::information(this, tr("Failed to open file! Try again.."), file.errorString());
-            return;
-        }
-        ui->injTex0FileLineEdit->setText(file.fileName());
-    }
-}
-
-void pwf2tex::injOpenPngFolder() {
-    QString PngFolder = QFileDialog::getExistingDirectory(this, tr("Open a folder to extract PNGs to!"), "", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
-    if (PngFolder.isEmpty()) {
-        QMessageBox noFolderError;
-        noFolderError.critical(0, "Error opening folder!", "Please choose a folder!");
-        noFolderError.setFixedSize(500, 200);
-        return;
-    } else {
-        QDir dir(PngFolder);
-        if (!dir.exists()) {
-            dir.mkdir(PngFolder);
-            return;
-        }
-        ui->injPngFolderLineEdit->setText(dir.path());
-    }
-}
-
-void pwf2tex::injFinalize() {
-    QProcess pwf2proc;
-    if (ui->injPngFolderLineEdit->text().isNull() || ui->injPngFolderLineEdit->text().isEmpty() || ui->injTex0FileLineEdit->text().isNull() || ui->injTex0FileLineEdit->text().isEmpty() || ui->injTex0FolderLineEdit->text().isNull() || ui->injTex0FolderLineEdit->text().isEmpty()) {
-        QMessageBox emptyBoxError;
-        emptyBoxError.critical(0, "Error running pwf2tex!", "You must fill all boxes in!");
-        emptyBoxError.setFixedSize(500, 200);
-    } else {
-        QFile texfile(ui->injTex0FileLineEdit->text());
-        if (!texfile.exists()) {
-            QMessageBox nonExistantFile;
-            nonExistantFile.critical(0, "Error opening tex0 file.",
-                "Please make sure the file you "
-                "chose exists and try again.");
-            nonExistantFile.setFixedSize(500, 200);
+        if (ui->injectPNGFolderPath->text().isNull() || ui->injectTEX0FilePath->text().isEmpty() || ui->injectTEX0FolderPath->text().isNull() || ui->injectPNGFolderPath->text().isEmpty() || ui->injectTEX0FilePath->text().isNull() || ui->injectTEX0FolderPath->text().isEmpty()) {
+            pwf2log::writeToLog(LOG_WARNING, "FAILED to run pwf2tex with reason: not all arguments are filled in");
+            pwf2info::showMessage("warning", "Error running pwf2tex!", "You must fill all boxes in!");
         } else {
-            QString pwf2texeloc = pwf2tex::getOS();
-            QString args = " inject \"" + ui->injTex0FolderLineEdit->text() + "\" \"" + ui->injTex0FileLineEdit->text() + "\" \"" + ui->injPngFolderLineEdit->text() + "\"";
-            pwf2proc.execute(pwf2texeloc + args);
-            pwf2proc.waitForFinished(-1);
-            if (pwf2proc.waitForFinished() && pwf2proc.exitStatus() != QProcess::NormalExit) {
-                pwf2proc.kill();
-                QMessageBox criticalRunError;
-                criticalRunError.critical(0, "Error running pwf2tex!", "Something bad happened and pwf2tex failed to run! Error: " + pwf2proc.error());
-                criticalRunError.setFixedSize(500, 200);
+            TEX0FileLocation.setFileName(ui->injectTEX0FilePath->text());
+            if (!TEX0FileLocation.exists()) {
+                pwf2log::writeToLog(LOG_ERROR, "FAILED to open file " + TEX0FileLocation.fileName().toStdString() + " with reason: " + TEX0FileLocation.errorString().toStdString());
+                pwf2info::showMessage("critical", "Error opening TEX0 file!", "Please make sure the file you chose exists and try again!");
             } else {
-                QMessageBox successMessage;
-                successMessage.information(0, "Done!", "Finished!");
-                successMessage.setFixedSize(500, 200);
-            }
-            QSettings pwf2settings((QDir(QApplication::applicationDirPath()).filePath("settings.ini")), QSettings::IniFormat);
-            if (pwf2settings.value("User_Experience/CloseFormOnToolUse", true).toBool() == true) {
-                this->close();
+                texArguments << "inject" << ui->injectTEX0FolderPath->text() << ui->injectTEX0FilePath->text() << ui->injectPNGFolderPath->text();
+                pwf2proc.start(texExecutable, texArguments);
+                pwf2proc.waitForFinished(-1);
+                if(!pwf2proc.waitForFinished()) {
+                    /// In case something disastrous happens, this should(?) help.
+                    while(pwf2proc.canReadLine()) {
+                        pwf2log::writeToLogNN(LOG_PWF2TEX, pwf2proc.readLine().toStdString());
+                    }
+                    if (pwf2proc.exitStatus() != 0) {
+                        pwf2proc.kill();
+                        pwf2log::writeToLog(LOG_ERROR, "pwf2tex FAILED to run. Status code: " + QString(pwf2proc.exitStatus()).toStdString());
+                        /// Not always given an error.
+                        if(!pwf2proc.errorString().isEmpty() && !pwf2proc.errorString().isNull())
+                            pwf2log::writeToLog(LOG_ERROR, "It seems pwf2tex threw an error too. Error: " + pwf2proc.errorString().toStdString());
+                        pwf2info::showMessage("critical", "Error running pwf2tex!", "Something bad happened and pwf2tex failed to run! Error: " + QString(pwf2proc.error()));
+                    } else {
+                        pwf2log::writeToLog(LOG_INFO, "Successfully ran pwf2tes with executable " + texExecutable.toStdString() + " and arguments " + texArguments.join(" ").toStdString() + "!");
+                        pwf2info::showMessage("info", "Done!", "Finished!");
+                    }
+                    if (pwf2info::closeWindowOnToolUse()) {
+                        this->close();
+                    }
+                }
             }
         }
     }
+}
+
+// This is just cleaner than junking up the QWidget's creation.
+
+void pwf2tex::setUpButtons() {
+    QObject::connect(ui->extractOpenTEX0File, SIGNAL(clicked()), this, SLOT(openTEX0File()));
+    QObject::connect(ui->extractOpenTEX0Folder, SIGNAL(clicked()), this, SLOT(openTEX0Folder()));
+    QObject::connect(ui->extractOpenPNGFolder, SIGNAL(clicked()), this, SLOT(openPNGFolder()));
+    QObject::connect(ui->extractRun, SIGNAL(clicked()), this, SLOT(runTex()));
+    QObject::connect(ui->injectOpenTEX0File, SIGNAL(clicked()), this, SLOT(openTEX0File()));
+    QObject::connect(ui->injectOpenTEX0Folder, SIGNAL(clicked()), this, SLOT(openTEX0Folder()));
+    QObject::connect(ui->injectOpenPNGFolder, SIGNAL(clicked()), this, SLOT(openPNGFolder()));
+    QObject::connect(ui->injectRun, SIGNAL(clicked()), this, SLOT(runTex()));
+}
+
+void pwf2tex::updateRichPresence() {
+    #ifdef ENABLE_RICHPRESENCE
+        if(this->isActiveWindow()) {
+            if(ui->texTabs->currentIndex() == 0)
+                pwf2discord::updateStatus("Using pwf2tex!", "Extracting textures!");
+            else
+                pwf2discord::updateStatus("Using pwf2tex!", "Injecting textures!");
+        }
+    #endif
 }

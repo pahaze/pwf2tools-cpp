@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Options</string>
+   <string>pwf2tools Options</string>
   </property>
   <property name="windowIcon">
    <iconset resource="pwf2main.qrc">
@@ -88,7 +88,7 @@
      </property>
     </widget>
    </widget>
-   <widget class="QWidget" name="userExpBox">
+   <widget class="QWidget" name="UserExperienceTab">
     <attribute name="title">
      <string>User Experience</string>
     </attribute>
@@ -97,7 +97,7 @@
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>181</width>
+       <width>241</width>
        <height>21</height>
       </rect>
      </property>

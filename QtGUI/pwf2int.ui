@@ -29,7 +29,7 @@
    <iconset resource="pwf2main.qrc">
     <normaloff>:/img/pwf2tools.png</normaloff>:/img/pwf2tools.png</iconset>
   </property>
-  <widget class="QTabWidget" name="IntTabs">
+  <widget class="QTabWidget" name="intTabs">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -50,16 +50,16 @@
    <property name="currentIndex">
     <number>0</number>
    </property>
-   <widget class="QWidget" name="extTab">
+   <widget class="QWidget" name="extractTab">
     <attribute name="title">
      <string>Extract an INT</string>
     </attribute>
-    <widget class="QPushButton" name="openIntExt">
+    <widget class="QPushButton" name="extractOpenInt">
      <property name="geometry">
       <rect>
-       <x>310</x>
+       <x>300</x>
        <y>30</y>
-       <width>91</width>
+       <width>101</width>
        <height>23</height>
       </rect>
      </property>
@@ -67,7 +67,7 @@
       <string>Open an INT!</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="ExtIntPathBox">
+    <widget class="QLineEdit" name="extractIntPath">
      <property name="enabled">
       <bool>true</bool>
      </property>
@@ -75,17 +75,17 @@
       <rect>
        <x>10</x>
        <y>30</y>
-       <width>291</width>
+       <width>281</width>
        <height>23</height>
       </rect>
      </property>
     </widget>
-    <widget class="QLabel" name="ExtFindIntLabel">
+    <widget class="QLabel" name="extractFindIntLabel">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>291</width>
+       <width>391</width>
        <height>16</height>
       </rect>
      </property>
@@ -93,12 +93,12 @@
       <string>Find your INT file!</string>
      </property>
     </widget>
-    <widget class="QLabel" name="ExtFindFolderLabel">
+    <widget class="QLabel" name="extractFindFolderLabel">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>70</y>
-       <width>291</width>
+       <width>391</width>
        <height>16</height>
       </rect>
      </property>
@@ -106,7 +106,7 @@
       <string>Find a folder to extract to!</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="openFolderExtPathBox">
+    <widget class="QLineEdit" name="extractFolderPath">
      <property name="enabled">
       <bool>true</bool>
      </property>
@@ -114,17 +114,17 @@
       <rect>
        <x>10</x>
        <y>90</y>
-       <width>291</width>
+       <width>281</width>
        <height>23</height>
       </rect>
      </property>
     </widget>
-    <widget class="QPushButton" name="openFolderExt">
+    <widget class="QPushButton" name="extractOpenFolder">
      <property name="geometry">
       <rect>
-       <x>310</x>
+       <x>300</x>
        <y>90</y>
-       <width>91</width>
+       <width>101</width>
        <height>23</height>
       </rect>
      </property>
@@ -132,12 +132,12 @@
       <string>Find a folder!</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="RunExtButt">
+    <widget class="QPushButton" name="extractRun">
      <property name="geometry">
       <rect>
-       <x>150</x>
+       <x>140</x>
        <y>120</y>
-       <width>121</width>
+       <width>131</width>
        <height>23</height>
       </rect>
      </property>
@@ -150,12 +150,12 @@
     <attribute name="title">
      <string>Create an INT</string>
     </attribute>
-    <widget class="QLabel" name="saveIntLabel">
+    <widget class="QLabel" name="createSaveIntLabel">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>171</width>
+       <width>391</width>
        <height>16</height>
       </rect>
      </property>
@@ -163,7 +163,7 @@
       <string>Save your INT!</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="saveIntPathBox">
+    <widget class="QLineEdit" name="createIntPath">
      <property name="enabled">
       <bool>true</bool>
      </property>
@@ -171,17 +171,17 @@
       <rect>
        <x>10</x>
        <y>30</y>
-       <width>291</width>
+       <width>281</width>
        <height>23</height>
       </rect>
      </property>
     </widget>
-    <widget class="QPushButton" name="saveIntButt">
+    <widget class="QPushButton" name="createSaveInt">
      <property name="geometry">
       <rect>
-       <x>310</x>
+       <x>300</x>
        <y>30</y>
-       <width>91</width>
+       <width>101</width>
        <height>23</height>
       </rect>
      </property>
@@ -189,12 +189,12 @@
       <string>Save an INT!</string>
      </property>
     </widget>
-    <widget class="QLabel" name="findFolderLabel">
+    <widget class="QLabel" name="createFindFolderLabel">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>70</y>
-       <width>301</width>
+       <width>391</width>
        <height>16</height>
       </rect>
      </property>
@@ -202,7 +202,7 @@
       <string>Find your folder with your modified INT content!</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="moddedIntFolderPathBox">
+    <widget class="QLineEdit" name="createFolderPath">
      <property name="enabled">
       <bool>true</bool>
      </property>
@@ -210,17 +210,17 @@
       <rect>
        <x>10</x>
        <y>90</y>
-       <width>291</width>
+       <width>281</width>
        <height>23</height>
       </rect>
      </property>
     </widget>
-    <widget class="QPushButton" name="findModdedFolderButt">
+    <widget class="QPushButton" name="createOpenFolder">
      <property name="geometry">
       <rect>
-       <x>310</x>
+       <x>300</x>
        <y>90</y>
-       <width>91</width>
+       <width>101</width>
        <height>23</height>
       </rect>
      </property>
@@ -228,12 +228,12 @@
       <string>Find a folder!</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="CrtIntButt">
+    <widget class="QPushButton" name="createRun">
      <property name="geometry">
       <rect>
-       <x>150</x>
+       <x>140</x>
        <y>120</y>
-       <width>121</width>
+       <width>131</width>
        <height>23</height>
       </rect>
      </property>
