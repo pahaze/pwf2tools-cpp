@@ -142,7 +142,7 @@ intsection_offset_table_t get_int_section_offsets(std::vector<intfile_t> &intfil
         fnsize += intfile.filename.length() + 1;
     }
     r.lzss = ALIGN(r.characters + fnsize, 0x800);
-    r.end = ALIGN((r.lzss + lzss_size), 0x800);
+    r.end = ALIGN((r.lzss + lzss_size) + sizeof(pwf2int::lzss_header_t), 0x800);
     return r;
 }
 
