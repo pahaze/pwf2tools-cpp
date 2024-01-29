@@ -11,7 +11,7 @@
 
 // Defines
 #define MAJOR_VERSION "14"
-#define MINOR_VERSION "5"
+#define MINOR_VERSION "6"
 
 // Class
 /// pwf2info is meant to be a "helper" class
